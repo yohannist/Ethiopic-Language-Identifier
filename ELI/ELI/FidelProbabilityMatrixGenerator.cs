@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace ELI.Service.LanguageModeler
 {
-    public class ProbabilityMatrixGenerator
+    public class FidelProbabilityMatrixGenerator
     {
         private const string CharColumnName = "Char";
     
@@ -20,7 +20,7 @@ namespace ELI.Service.LanguageModeler
         private static readonly uint[] Additions = { 0x00A0, 0x005C, 0x002E };
 
 
-        public ProbabilityMatrixGenerator(IEnumerable<string> words)
+        public FidelProbabilityMatrixGenerator(IEnumerable<string> words)
         {
             _words = words.ToList();
             _corpus = string.Join(" ", _words);
