@@ -26,7 +26,7 @@ namespace ELI.Service.LanguageModeler
             _corpus = string.Join(" ", _words);
         }
 
-        public DataTable GenerateProbabilityMatrix()
+        public DataTable Generate()
         {
             var summed = GenerateProceedingCharacterSumProbabilitMatrix();
 
@@ -98,14 +98,14 @@ namespace ELI.Service.LanguageModeler
             return totalAppearance;
         }
 
-        private IDictionary<string, int> GetTotalCharacterAppearance(DataTable dataTable)
+        private IDictionary<string, double> GetTotalCharacterAppearance(DataTable dataTable)
         {
             return dataTable
                 .AsEnumerable()
                 .Select(t => new
                 {
                     Key = t.Field<string>(CharColumnName)
-                    , Sum = t.ItemArray.Skip(1).Cast<int>().Sum()
+                    , Sum = t.ItemArray.Skip(1).Cast<double>().Sum()
                 }).ToDictionary(t => t.Key, t => t.Sum);
         }
 

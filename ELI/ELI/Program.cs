@@ -9,14 +9,14 @@ namespace ELI.Service.LanguageModeler
 {
     class Program
     {
-        async static Task<int> Main(string[] args)
+        public static int Main(string[] args)
         {
             if (args.Length != 2)
             {
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
                 Console.WriteLine("Language modeler needs <Language Resource Path> <Signature output path");
                 Console.ResetColor();
-                return 1;
+
             }
 
             string inputPath = args[0];
@@ -27,7 +27,7 @@ namespace ELI.Service.LanguageModeler
 
             ICorpusLoader loader = new FileSystemCorpusLoader(inputPath);
 
-            var corpus = await loader.GetCorpusAsync();
+            var corpus = loader.GetCorpus();
 
             Console.WriteLine("{0} words loaded \nComputing probability matrix...", corpus.Count());
 
@@ -40,6 +40,13 @@ namespace ELI.Service.LanguageModeler
             File.WriteAllText(outputpath, serialized, Encoding.UTF8);
 
             Console.WriteLine("Probability matrix output placed at {0}", outputpath);
+            Console.Beep();
+
+            Console.WriteLine("Press any key to exit");
+
+            Console.ReadKey();
+            
+            Console.ResetColor();
 
             return 0;
         }

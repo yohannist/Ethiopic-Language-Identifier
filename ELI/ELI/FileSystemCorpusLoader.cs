@@ -9,7 +9,7 @@ namespace ELI.Service.LanguageModeler
 {
     class FileSystemCorpusLoader : ICorpusLoader
     {
-        public readonly char[] WordDelimiters = {';', ' ', ':', ','};
+        public readonly char[] WordDelimiters = {';', ' ', ':', ',', '\n'};
         private readonly string _path;
 
         public FileSystemCorpusLoader(string path)
@@ -17,7 +17,7 @@ namespace ELI.Service.LanguageModeler
             _path = path;
         }
 
-        public async Task<IList<string>> GetCorpusAsync()
+        public  IList<string> GetCorpus()
         {
             if (File.Exists(_path))
             {
@@ -27,7 +27,7 @@ namespace ELI.Service.LanguageModeler
             if (Directory.Exists(_path))
             {
                 StringBuilder  builder = new StringBuilder();
-                var files = Directory.EnumerateFiles(_path, "**\\*.txt", SearchOption.AllDirectories);
+                var files = Directory.EnumerateFiles(_path, "*.*", SearchOption.AllDirectories);
 
                 foreach (var file in files)
                     builder.AppendLine(File.ReadAllText(file));
