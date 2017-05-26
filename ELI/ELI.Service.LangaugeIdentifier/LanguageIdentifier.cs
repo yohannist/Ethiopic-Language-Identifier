@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Data;
 using System.Linq;
+using ELI.Service.Shared;
 
 namespace ELI.Service.LangaugeIdentifier
 {
@@ -24,12 +23,13 @@ namespace ELI.Service.LangaugeIdentifier
             {
                 probabilityScore.Add(signature.Language, 0);
 
-                for (int i = 0; i < sampleText.Length - 1; i++)
+                for (var i = 0; i < sampleText.Length - 1; i++)
                 {
                     var currentChar = sampleText[i];
                     var nextChar = sampleText[i + 1];
 
-                    var row = signature.Matrix.AsEnumerable().SingleOrDefault(t => t.Field<string>("Char") == currentChar.ToString());
+                    var row = signature.Matrix.AsEnumerable()
+                        .SingleOrDefault(t => t.Field<string>("Char") == currentChar.ToString());
                     if (row == null) continue;
 
                     double value = 0;
@@ -38,10 +38,9 @@ namespace ELI.Service.LangaugeIdentifier
                         continue;
 
                     if (double.TryParse(row[nextChar.ToString()].ToString(), out value))
-                        if(Math.Abs(value) > 0.0001)
-                        probabilityScore[signature.Language] += value;
+                        if (Math.Abs(value) > 0.0001)
+                            probabilityScore[signature.Language] += value;
                 }
-
             }
 
             return probabilityScore.OrderByDescending(t => t.Value).First().Key;

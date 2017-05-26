@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ELI.Service.Shared
+﻿namespace ELI.Service.Shared
 {
-    public class Constants
+    public static class Constants
     {
+        public const string CharColumnName = "Char";
+
+        public const uint StartCharCode = 0x1200;
+        public const uint EndCharCode = 0x1357;
     }
 }

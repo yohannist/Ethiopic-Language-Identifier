@@ -1,7 +1,6 @@
 ﻿using System.Data;
 
-
-namespace ELI.Service.LangaugeIdentifier
+namespace ELI.Service.Shared
 {
     public class SignatureModel
     {

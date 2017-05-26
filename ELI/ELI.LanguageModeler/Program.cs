@@ -2,12 +2,12 @@
 using System.IO;
 using System.Linq;
 using System.Text;
-using ELI.Service.LangaugeIdentifier;
+using ELI.Service.Shared;
 using Newtonsoft.Json;
 
 namespace ELI.Service.LanguageModeler
 {
-    class Program
+    internal class Program
     {
         public static int Main(string[] args)
         {
@@ -18,9 +18,9 @@ namespace ELI.Service.LanguageModeler
                 Console.ResetColor();
             }
 
-            string inputPath = args[0];
-            string outputpath = args[1];
-            string language = args[2];
+            var inputPath = args[0];
+            var outputpath = args[1];
+            var language = args[2];
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Attempting to load the corpus from {0} ...", inputPath);
@@ -35,7 +35,8 @@ namespace ELI.Service.LanguageModeler
 
             var matrix = generator.Generate();
 
-            var serialized = JsonConvert.SerializeObject(new SignatureModel {Language = language, Matrix = matrix }, Formatting.Indented);
+            var serialized = JsonConvert.SerializeObject(new SignatureModel {Language = language, Matrix = matrix},
+                Formatting.Indented);
 
             File.WriteAllText(outputpath, serialized, Encoding.UTF8);
 

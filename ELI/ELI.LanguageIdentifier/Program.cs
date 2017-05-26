@@ -1,12 +1,12 @@
-﻿ using System;
- using ELI.Service.LangaugeIdentifier;
- using ELI.Service.LanguageModeler;
+﻿using System;
+using ELI.Service.LangaugeIdentifier;
+using ELI.Service.Shared;
 
 namespace ELI.LanguageIdentifier
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             if (args.Length != 2)
             {
@@ -20,8 +20,8 @@ namespace ELI.LanguageIdentifier
 
             var signatures = new SignatureLoader().Load(signaturePath);
             var inputFile = new FileSystemTextLoader(inputFilePath).GetText();
-            
-        
+
+
             var langIdentifier = new Service.LangaugeIdentifier.LanguageIdentifier(signatures);
 
             var language = langIdentifier.IdentifyLanguage(inputFile);

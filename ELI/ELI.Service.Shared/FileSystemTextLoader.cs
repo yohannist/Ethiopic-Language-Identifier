@@ -1,31 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Text;
 
-namespace ELI.Service.LanguageModeler
+namespace ELI.Service.Shared
 {
     public class FileSystemTextLoader : ITextLoader
     {
-        public readonly char[] WordDelimiters = {';', ' ', ':', ',', '\n'};
         private readonly string _path;
+        public readonly char[] WordDelimiters = {';', ' ', ':', ',', '\n'};
 
         public FileSystemTextLoader(string path)
         {
             _path = path;
         }
 
-        public  string GetText()
+        public string GetText()
         {
             if (File.Exists(_path))
-            {
                 return File.ReadAllText(_path);
-            }
 
             if (Directory.Exists(_path))
             {
-                StringBuilder  builder = new StringBuilder();
+                var builder = new StringBuilder();
                 var files = Directory.EnumerateFiles(_path, "*.*", SearchOption.AllDirectories);
 
                 foreach (var file in files)

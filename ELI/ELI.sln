@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ELI.Service.LanguageModeler", "ELI\ELI.Service.LanguageModeler.csproj", "{F0492990-237F-4970-88B7-ECD64FD872E8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ELI.LanguageModeler", "ELI.LanguageModeler\ELI.LanguageModeler.csproj", "{F0492990-237F-4970-88B7-ECD64FD872E8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ELI.Service.LangaugeIdentifier", "ELI.Service.LangaugeIdentifier\ELI.Service.LangaugeIdentifier.csproj", "{CE347B23-1D03-4A65-B531-E6F5899F3153}"
 EndProject

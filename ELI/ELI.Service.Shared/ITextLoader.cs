@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-namespace ELI.Service.LanguageModeler
+﻿namespace ELI.Service.Shared
 {
     public interface ITextLoader
     {
-       string GetText();
+        string GetText();
     }
 }
