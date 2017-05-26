@@ -15,15 +15,12 @@ namespace ELI.Service.LanguageModeler
         private const uint StartCharCode = 0x1200;
         private const uint EndCharCode = 0x1357;
 
-        private readonly IList<string> _words;
-
         private static readonly uint[] Additions = { 0x00A0, 0x005C, 0x002E };
 
 
-        public FidelProbabilityMatrixGenerator(IEnumerable<string> words)
+        public FidelProbabilityMatrixGenerator(string corpus)
         {
-            _words = words.ToList();
-            _corpus = string.Join(" ", _words);
+            _corpus = corpus;
         }
 
         public DataTable Generate()
@@ -74,28 +71,6 @@ namespace ELI.Service.LanguageModeler
             }
 
             return matrix;
-        }
-
-        private IDictionary<char, int> GetTotalCharacterAppearanceInCorpus(string corpus)
-        {
-            var chars = new List<char>();
-
-            for (var i = StartCharCode; i <= EndCharCode; i++)
-                chars.Add((char)i);
-
-            var summed = _words.SelectMany(t => t.Substring(0, t.Length - 1)).GroupBy(c => c).Select(t => new
-            {
-                t.Key,
-                Count = t.Count()
-            });
-
-            var totalAppearance =  chars.Join(summed, a => a, b => b.Key, (a, b) => new
-            {
-                Key = a,
-                b.Count
-            }).ToDictionary(t => t.Key, t => t.Count);
-
-            return totalAppearance;
         }
 
         private IDictionary<string, double> GetTotalCharacterAppearance(DataTable dataTable)

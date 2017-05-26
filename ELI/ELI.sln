@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ELI.Service.LanguageModeler
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ELI.Service.LangaugeIdentifier", "ELI.Service.LangaugeIdentifier\ELI.Service.LangaugeIdentifier.csproj", "{CE347B23-1D03-4A65-B531-E6F5899F3153}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ELI.LanguageIdentifier", "ELI.LanguageIdentifier\ELI.LanguageIdentifier.csproj", "{EE5A5937-8C06-4A75-A0C7-C667DACDBDD0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ELI.Service.Shared", "ELI.Service.Shared\ELI.Service.Shared.csproj", "{504904C1-42AC-42BD-BC72-121C4336C1C2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{CE347B23-1D03-4A65-B531-E6F5899F3153}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE347B23-1D03-4A65-B531-E6F5899F3153}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE347B23-1D03-4A65-B531-E6F5899F3153}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE5A5937-8C06-4A75-A0C7-C667DACDBDD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE5A5937-8C06-4A75-A0C7-C667DACDBDD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE5A5937-8C06-4A75-A0C7-C667DACDBDD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE5A5937-8C06-4A75-A0C7-C667DACDBDD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{504904C1-42AC-42BD-BC72-121C4336C1C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{504904C1-42AC-42BD-BC72-121C4336C1C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{504904C1-42AC-42BD-BC72-121C4336C1C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{504904C1-42AC-42BD-BC72-121C4336C1C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

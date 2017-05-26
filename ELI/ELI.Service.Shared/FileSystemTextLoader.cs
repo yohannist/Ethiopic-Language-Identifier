@@ -3,25 +3,24 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ELI.Service.LanguageModeler
 {
-    class FileSystemCorpusLoader : ICorpusLoader
+    public class FileSystemTextLoader : ITextLoader
     {
         public readonly char[] WordDelimiters = {';', ' ', ':', ',', '\n'};
         private readonly string _path;
 
-        public FileSystemCorpusLoader(string path)
+        public FileSystemTextLoader(string path)
         {
             _path = path;
         }
 
-        public  IList<string> GetCorpus()
+        public  string GetText()
         {
             if (File.Exists(_path))
             {
-               return File.ReadAllText(_path).Split(WordDelimiters, StringSplitOptions.RemoveEmptyEntries).ToList();
+                return File.ReadAllText(_path);
             }
 
             if (Directory.Exists(_path))
@@ -32,7 +31,7 @@ namespace ELI.Service.LanguageModeler
                 foreach (var file in files)
                     builder.AppendLine(File.ReadAllText(file));
 
-                return builder.ToString().Split(WordDelimiters, StringSplitOptions.RemoveEmptyEntries).ToList();
+                return builder.ToString();
             }
 
             throw new FileNotFoundException($"No file or directory was found at {_path}");

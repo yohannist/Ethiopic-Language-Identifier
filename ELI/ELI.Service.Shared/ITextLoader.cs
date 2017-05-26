@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 namespace ELI.Service.LanguageModeler
 {
-    interface ICorpusLoader
+    public interface ITextLoader
     {
-       IList<string> GetCorpus();
+       string GetText();
     }
 }

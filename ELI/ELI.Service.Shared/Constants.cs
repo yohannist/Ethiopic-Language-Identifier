@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ELI.Service.LangaugeIdentifier
+namespace ELI.Service.Shared
 {
-    public class Class1
+    public class Constants
     {
     }
 }
