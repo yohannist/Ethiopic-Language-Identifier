@@ -29,7 +29,7 @@ namespace ELI.Service.LangaugeIdentifier
                     var nextChar = sampleText[i + 1];
 
                     var row = signature.Matrix.AsEnumerable()
-                        .SingleOrDefault(t => t.Field<string>("Char") == currentChar.ToString());
+                        .SingleOrDefault(t => t.Field<string>(Constants.CharColumnName) == currentChar.ToString());
                     if (row == null) continue;
 
                     double value = 0;

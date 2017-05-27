@@ -14,7 +14,8 @@ namespace ELI.Service.LanguageModeler
 
         public FidelProbabilityMatrixGenerator(string corpus)
         {
-            _corpus = CorpusCleaner.Clean(corpus);
+            var array = CorpusCleaner.Clean(corpus).Split(new []{" ", "\n", ";", ":"}, StringSplitOptions.RemoveEmptyEntries).Distinct();
+            _corpus = string.Join(" ", array);
         }
 
         public DataTable Generate()
@@ -43,20 +44,37 @@ namespace ELI.Service.LanguageModeler
         private DataTable GenerateProceedingCharacterSumProbabilitMatrix()
         {
             var matrix = CreateCharacterMatrix();
+
+//            var s1 = DateTime.Now;
+//            Parallel.ForEach(Enumerable.Range(0, matrix.Rows.Count), index =>
+//            {
+//                var row = matrix.Rows[index];
+//                ComputeProbability(matrix, row);
+//            });
+//            var t1 = DateTime.Now - s1;
+
+            var s2 = DateTime.Now;
             foreach (DataRow row in matrix.Rows)
-                for (var i = 0; i < _corpus.Length - 1; i++)
-                {
-                    var currentCharacter = new string(_corpus[i], 1);
-                    var nextCharacter = new string(_corpus[i + 1], 1);
+                ComputeProbability(matrix, row);
 
-                    if (row.Field<string>(Constants.CharColumnName) != currentCharacter)
-                        continue;
-
-                    if (matrix.Columns.Contains(nextCharacter))
-                        row[nextCharacter] = Convert.ToInt32(row[nextCharacter]) + 1;
-                }
+            var t2 = DateTime.Now - s2;
 
             return matrix;
+        }
+
+        private void ComputeProbability(DataTable matrix, DataRow row)
+        {
+            for (var i = 0; i < _corpus.Length - 1; i++)
+            {
+                var currentCharacter = new string(_corpus[i], 1);
+                var nextCharacter = new string(_corpus[i + 1], 1);
+
+                if (row.Field<string>(Constants.CharColumnName) != currentCharacter)
+                    continue;
+
+                if (matrix.Columns.Contains(nextCharacter))
+                    row[nextCharacter] = Convert.ToInt32(row[nextCharacter] ?? 0) + 1;
+            }
         }
 
         private IDictionary<string, double> GetTotalCharacterAppearance(DataTable dataTable)
@@ -83,7 +101,7 @@ namespace ELI.Service.LanguageModeler
             dataTable.Columns.Add(Constants.CharColumnName, typeof(string));
 
             var columns = Enumerable.Range((int) Constants.StartCharCode,
-                    (int) (Constants.EndCharCode - Constants.StartCharCode))
+                    (int) (Constants.EndCharCode - Constants.StartCharCode) + 1)
                 .Select(t => new DataColumn(((char) t).ToString(CultureInfo.InvariantCulture), typeof(double))
                 {
                     DefaultValue = 0
@@ -103,6 +121,7 @@ namespace ELI.Service.LanguageModeler
             {
                 var row = dataTable.NewRow();
                 row[Constants.CharColumnName] = (char) i;
+               
                 dataTable.Rows.Add(row);
             }
 

@@ -43,7 +43,7 @@ namespace ELI.Service.LanguageModeler
             Console.WriteLine("Probability matrix output placed at {0}", outputpath);
 
             Console.ResetColor();
-
+            Console.Beep();
             return 0;
         }
     }
