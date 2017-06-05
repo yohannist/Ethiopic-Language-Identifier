@@ -1,0 +1,36 @@
+<div>
+  <h2>Ethiopic Language Identifier</h2>
+
+  <textarea class="form-control" rows=5 ng-model="vm.input" placeholder="paste a url or a text sample"></textarea>
+  <br/>
+
+  <div>
+    <button ng-click="vm.identify()" ng-disabled="loadingSignatures" style="text-align:center" class="btn btn-lg btn-primary pull-right"
+      ng-href="#/">Identify</span></button>
+  </div>
+
+</div>
+<br/>
+<br/>
+
+<div style="text-align:center">
+  <h2 ng-show="vm.loadingSignatures">Loading signatures. Please wait</h2>
+</div>
+
+<br/>
+
+<div ng-show="!vm.loadingSignatures && vm.scores">
+  <table class="table table-compact">
+    <tr>
+      <td>Language</td>
+      <th>Score</th>
+    </tr>
+    <tr ng-repeat="score in vm.scores">
+      <td>{{score.Language}}</td>
+      <td>{{score.Score}}</td>
+    </tr>
+  </table>
+
+</div>
+
+<br/>
