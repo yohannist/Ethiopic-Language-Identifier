@@ -1,7 +1,7 @@
 <div>
   <h2>Ethiopic Language Identifier</h2>
 
-  <textarea class="form-control" rows=5 ng-model="vm.input" placeholder="paste a url or a text sample"></textarea>
+  <textarea ng-change="vm.identify()" class="form-control" rows=5 ng-model="vm.input" placeholder="paste a url or a text sample"></textarea>
   <br/>
 
   <div>
@@ -19,15 +19,18 @@
 
 <br/>
 
-<div ng-show="!vm.loadingSignatures && vm.scores">
-  <table class="table table-compact">
+<div  ng-show="!vm.loadingSignatures && vm.scores">
+  <table style="margin:auto; width:50%" class="table table-striped">
     <tr>
-      <td>Language</td>
+      <th colspan="2" >Breakdown</th>
+    </tr>
+    <tr>
+      <th>Language</th>
       <th>Score</th>
     </tr>
     <tr ng-repeat="score in vm.scores">
       <td>{{score.Language}}</td>
-      <td>{{score.Score}}</td>
+      <td>{{score.Score}}%</td>
     </tr>
   </table>
 
