@@ -1,65 +1,84 @@
 <div class="row" style="text-align:center">
-  <h3 style="text-transform: uppercase">Ethiopic Language Identifier</h3>
+  <div class="col-md-12">
+    <h3 style="text-transform: uppercase">Ethiopic Language Identifier</h3>
 
-  <textarea ng-change="vm.identify()" class="form-control" rows=5 ng-model="vm.input" placeholder="Paste a url or a sample text"></textarea>
-  <br/>
+    <textarea ng-change="vm.identify()" class="form-control" rows=6 ng-model="vm.input" placeholder="Paste a url or a sample text"></textarea>
+    <br/>
 
-  <div>
-    <button ng-click="vm.identify()" ng-disabled="loadingSignatures" style="margin:auto;width:12em" class="btn btn-lg btn-default" ng-href="#/">Identify</span></button>
+    <div>
+      <button ng-click="vm.identify()" ng-disabled="loadingSignatures" style="margin:auto;width:12em" class="btn btn-lg btn-default"
+        ng-href="#/">Identify</span></button>
+    </div>
   </div>
-
 </div>
 
 <div ng-if="vm.loadingSignatures" class="row" style="text-align:center">
   <h2>Loading signatures. Please wait</h2>
 </div>
 
+<hr/>
 
 <div class="row" ng-show="!vm.loadingSignatures && vm.scores">
-  <div style="text-align:center">
-    <hr/>
-    <h4>Language Identified As <span style="background:dodgerblue;
+  <div class="row" style="text-align:center">
+
+    <div class="col-md-12 col-sm-12">
+      <h3 style="font-size:1.2em"><span style="padding: 10px;border-bottom:5px solid dodgerblue">Language Identified As </span>
+        <span style="padding: 10px;background:dodgerblue;
     color: white;
-    padding: 10px;
+    border-bottom:5px solid dodgerblue;
     margin: auto;
-    width: 30%;text-transform:uppercase"> {{vm.Language.Language}}</span>
-      <h4>
-
+    width: 30%;text-transform:uppercase;"> {{vm.Language.Language}}</span>
+      </h3>
+    </div>
   </div>
-  <br/>
-  <hr/>
-  <br/>
-  <div style="width:80%;margin:auto;">
-    <div data-toggle="tooltip" data-placement="top" title="{{score.Language}}" ng-repeat="score in vm.scores | orderBy : '-Score'"
-      style="height:20px;display:inline-block;width:{{score.Percentage}}%;color:gray;font-weight:bold;">
 
-      <span>{{score.Language}} {{score.Percentage}}%</span>
-      <div style="height:15px;width:100%;background:{{score.Color}};"></div>
+  <hr/>
+  <div class="row">
+
+    <div style="text-align: center" class="col-md-12 col-sm-12">
+      <small>Probability of the languages is shown</small>
+
+      <div style="width:90%;margin:auto;text-align:left">
+        <div ng-show="score.Percentage" data-toggle="tooltip" data-placement="top" title="{{score.Language}}" ng-repeat="score in vm.scores | orderBy : '-Score'"
+          style="height:20px;display:inline-block;width:{{score.Percentage}}%;color:gray;font-weight:bold;">
+
+          <span>&nbsp;&nbsp;{{score.Language}} {{score.Percentage}}%</span>
+          <div style="height:15px;width:100%;background:{{score.Color}};"></div>
+        </div>
+      </div>
+
     </div>
   </div>
 
   <hr/>
 
-  <table style="margin:auto; width:50%" class="table">
-    <tr>
-      <th colspan="3">Breakdown</th>
-    </tr>
-    <tr>
-      <th>Language</th>
-      <th>Score</th>
-      <th>%</th>
-    </tr>
-    <tr ng-repeat="score in vm.scores | orderBy : '-Score'">
-      <td>{{score.Language}}</td>
-      <td>{{score.Score}}</td>
-      <td>{{score.Percentage}}%</td>
-    </tr>
-    <tr>
-      <td colspan="3">
-      </td>
-    </tr>
-  </table>
-
-</div>
-
+  <div class="row">
+    <div style="text-align:center;margin-bottom:4px;" class="col-md-12">
+      <button class="btn btn-info btn-lg" type="button" data-toggle="collapse" data-target="#furtherBreakdown" aria-expanded="false"
+        aria-controls="furtherBreakdown">
+  Detailed Breakdown <span class="glyphicon glyphicon-arrow-down"></span>
+</button>
 <br/>
+      <div class="collapse" id="furtherBreakdown">
+        <table style="margin:auto; width:60%" class="table table-bordered">
+          <tr>
+            <th>Language</th>
+            <th>Score</th>
+            <th></th>
+          </tr>
+          <tr ng-repeat="score in vm.scores | orderBy : '-Score'">
+            <td>{{score.Language}}</td>
+            <td>{{score.Score}}</td>
+            <td ng-show="score.Percentage">{{score.Percentage}}%</td>
+          </tr>
+          <tr>
+            <td colspan="3">
+            </td>
+          </tr>
+        </table>
+
+      </div>
+
+    </div>
+  </div>
+</div>

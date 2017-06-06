@@ -55,6 +55,10 @@
       vm.scores = vm.Language = null;
 
       var result = languageIdentifier.identify(signatures, vm.input);
+      if (!result) {
+         return;
+       }
+      
       vm.scores = result.Scores;
       vm.Language = result.MostLikelyLanguage;
 
@@ -64,8 +68,8 @@
     function getRandomColor() {
       var color = 'ffffff';
       while (color.startsWith('ff') || color == '000000')
-        color = ('00000'+(Math.random()*(1<<24)|0).toString(16)).slice(-6);
-      return "#" +color;
+        color = ('00000' + (Math.random() * (1 << 24) | 0).toString(16)).slice(-6);
+      return "#" + color;
     }
   }
 
