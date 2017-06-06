@@ -6,11 +6,11 @@
         .factory('languageIdentifier', factory);
 
     function factory() {
- 
+
         return {
             identify: identify
         };
-  
+
         function identify(signatures, sampleText) {
             if (!sampleText) {
                 return undefined;
@@ -41,7 +41,8 @@
                         }
             
              */
-            var probabilityScore = [];
+            var probabilityScores = [];
+            var scoreSum = 0;
 
             angular.forEach(signatures, function (signature) {
 
@@ -63,7 +64,7 @@
                             var value = 0;
 
                             if (row[nextChar]) {
-                                value = row[nextChar];
+                                value = parseFloat(row[nextChar]);
                             }
                             score.Score += value;
 
@@ -72,11 +73,24 @@
                     }
                 }
 
-                probabilityScore.push(score);
+                probabilityScores.push(score);
 
+                scoreSum += score.Score;
             });
 
-            return probabilityScore;
+            for(var k = 0; k < probabilityScores.length; k++){
+                //probabilityScores[k].Score = Math.round(probabilityScores[k].Score, 5);
+                probabilityScores[k].Percentage = Math.round( (probabilityScores[k].Score / scoreSum) * 100);
+            }
+                    
+
+
+            var mostLikelyLanguage = _.max(probabilityScores, function (score) { return score.Score });
+
+            return {
+                Scores: probabilityScores,
+                MostLikelyLanguage: mostLikelyLanguage
+            };
         }
 
 
