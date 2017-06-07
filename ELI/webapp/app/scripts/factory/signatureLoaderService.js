@@ -18,7 +18,22 @@
                             reject(err); // or handle err
                         }
 
-                        return resolve(JSZip.loadAsync(data));
+                        var signatures = [];
+                        JSZip.loadAsync(data).then(function (zip) {
+
+                            zip.forEach(function (name, file, index) {
+                                file.async("string").then(function (data) {
+
+                                    signatures.push(JSON.parse(data.trim()));
+                                    if (signatures.lenth == zip.length)
+                                        resolve(signatures);
+                                });
+                            });
+
+                        }, function (err) {
+                            reject(err);
+                        });
+                        // return resolve(JSZip.loadAsync(data));
                     });
                 }
             )

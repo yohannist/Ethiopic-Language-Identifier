@@ -33,33 +33,14 @@
 
     var signatures = [];
 
-    // angular.forEach(signatureFileNames, function (val, index) {
-    //   var req = {
-    //     method: 'GET',
-    //     url: signaturePath + '/' + val + '.json'
-    //   };
-
-    //   $http(req).then(function (data) {
-    //    // signatures.push(data.data);
-    //     vm.loadingSignatures = index < signatureFileNames.length - 1;
-    //   }, function (error) {
-    //     vm.error = error;
-    //     vm.errorBanner = true;
-    //   });
-
-    // });
-
     signatureLoaderService.getSignaturesFromZip('./signature/sig')
-      .then(function (zip) {
+      .then(function (sig) {
 
-        zip.forEach(function (file) {
-          zip.file(file).async("string").then(function (data) {
-
-            signatures.push(JSON.parse(data.trim()));
-            vm.loadingSignatures = false;
-          });
-        });
-
+        signatures = sig;
+        vm.loadingSignatures = false
+      }, function (err) {
+        vm.errorBanner = true;
+        vm.error = err;
       });
 
     function identify() {
