@@ -189,8 +189,13 @@ gulp.task('images', function () {
 });
 
 gulp.task('copy:extras', function () {
-  return gulp.src(yeoman.app + '/*/.*', { dot: true })
+  return gulp.src(yeoman.app + '/**/.*', { dot: true })
     .pipe(gulp.dest(yeoman.dist));
+});
+
+gulp.task('copy:signature', function () {
+  return gulp.src(yeoman.app + '/signature/*')
+    .pipe(gulp.dest(yeoman.dist + '/signature'));
 });
 
 gulp.task('copy:fonts', function () {
@@ -199,7 +204,7 @@ gulp.task('copy:fonts', function () {
 });
 
 gulp.task('build', ['clean:dist'], function () {
-  runSequence(['images', 'copy:extras', 'copy:fonts', 'client:build']);
+  runSequence(['images', 'copy:extras', 'copy:fonts', 'copy:signature', 'client:build']);
 });
 
 gulp.task('default', ['build']);
