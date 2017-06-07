@@ -13,9 +13,9 @@
   angular.module('eliApp')
     .controller('MainCtrl', controller);
 
-  controller.$inject = ['$http', 'languageIdentifier'];
+  controller.$inject = ['$http', 'languageIdentifier', 'signatureLoaderService'];
 
-  function controller($http, languageIdentifier) {
+  function controller($http, languageIdentifier, signatureLoaderService) {
 
     var vm = this;
 
@@ -28,27 +28,39 @@
     vm.identify = identify;
     vm.getRandomColor = getRandomColor;
 
-    var signatureFileNames = ["amharic", "geeze", "tigrigna"];
+    var signatureFileNames = ["am", "geeze", "tg"];
     var signaturePath = './json';
 
     var signatures = [];
 
-    angular.forEach(signatureFileNames, function (val, index) {
-      var req = {
-        method: 'GET',
-        url: signaturePath + '/' + val + '.json'
-      };
+    // angular.forEach(signatureFileNames, function (val, index) {
+    //   var req = {
+    //     method: 'GET',
+    //     url: signaturePath + '/' + val + '.json'
+    //   };
 
-      $http(req).then(function (data) {
-        signatures.push(data.data);
-        vm.loadingSignatures = index < signatureFileNames.length - 1;
-      }, function (error) {
-        vm.error = error;
-        vm.errorBanner = true;
+    //   $http(req).then(function (data) {
+    //    // signatures.push(data.data);
+    //     vm.loadingSignatures = index < signatureFileNames.length - 1;
+    //   }, function (error) {
+    //     vm.error = error;
+    //     vm.errorBanner = true;
+    //   });
+
+    // });
+
+    signatureLoaderService.getSignaturesFromZip('./signature/sig')
+      .then(function (zip) {
+
+        zip.forEach(function (file) {
+          zip.file(file).async("string").then(function (data) {
+
+            signatures.push(JSON.parse(data.trim()));
+            vm.loadingSignatures = false;
+          });
+        });
+
       });
-
-    });
-
 
     function identify() {
 
@@ -56,9 +68,9 @@
 
       var result = languageIdentifier.identify(signatures, vm.input);
       if (!result) {
-         return;
-       }
-      
+        return;
+      }
+
       vm.scores = result.Scores;
       vm.Language = result.MostLikelyLanguage;
 

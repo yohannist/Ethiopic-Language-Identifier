@@ -66,7 +66,9 @@
                             if (row[nextChar]) {
                                 value = parseFloat(row[nextChar]);
                             }
-                            score.Score += value;
+                            
+                            if(value !== NaN)
+                                score.Score += value;
 
                             break;
                         }
@@ -80,7 +82,7 @@
 
             for(var k = 0; k < probabilityScores.length; k++){
                 //probabilityScores[k].Score = Math.round(probabilityScores[k].Score, 5);
-                probabilityScores[k].Percentage = Math.round( (probabilityScores[k].Score / scoreSum) * 100);
+                probabilityScores[k].Percentage = Math.round( (probabilityScores[k].Score / scoreSum) * 100, 2);
             }
                     
 

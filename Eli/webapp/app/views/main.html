@@ -1,6 +1,6 @@
 <div class="row" style="text-align:center">
   <div class="col-md-12">
-    <h3 style="text-transform: uppercase">Ethiopic Language Identifier</h3>
+    <h3 style="text-transform: uppercase;display:inline-block;border-bottom:4px solid #269abc">Ethiopic Language Identifier</h3>
 
     <textarea ng-change="vm.identify()" class="form-control" rows=6 ng-model="vm.input" placeholder="Paste a url or a sample text"></textarea>
     <br/>
@@ -22,10 +22,10 @@
   <div class="row" style="text-align:center">
 
     <div class="col-md-12 col-sm-12">
-      <h3 style="font-size:1.2em"><span style="padding: 10px;border-bottom:5px solid dodgerblue">Language Identified As </span>
-        <span style="padding: 10px;background:dodgerblue;
+      <h3 style="font-size:1.2em"><span style="padding: 10px;border-bottom:5px solid #269abc">Language Identified As </span>
+        <span style="padding: 10px;background:#269abc;
     color: white;
-    border-bottom:5px solid dodgerblue;
+    border-bottom:5px solid #269abc;
     margin: auto;
     width: 30%;text-transform:uppercase;"> {{vm.Language.Language}}</span>
       </h3>
@@ -58,7 +58,8 @@
         aria-controls="furtherBreakdown">
   Detailed Breakdown <span class="glyphicon glyphicon-arrow-down"></span>
 </button>
-<br/>
+      <br/>
+      <br/>
       <div class="collapse" id="furtherBreakdown">
         <table style="margin:auto; width:60%" class="table table-bordered">
           <tr>
