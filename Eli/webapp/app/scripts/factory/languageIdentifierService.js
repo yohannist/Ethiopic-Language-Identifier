@@ -66,9 +66,11 @@
                             if (row[nextChar]) {
                                 value = parseFloat(row[nextChar]);
                             }
-                            
-                            if(value !== NaN)
+
+                            if (!isNaN(value)) {
                                 score.Score += value;
+                            }
+
 
                             break;
                         }
@@ -80,22 +82,28 @@
                 scoreSum += score.Score;
             });
 
-            for(var k = 0; k < probabilityScores.length; k++){
-                //probabilityScores[k].Score = Math.round(probabilityScores[k].Score, 5);
-                probabilityScores[k].Percentage = Math.round( (probabilityScores[k].Score / scoreSum) * 100, 2);
-            }
-                    
+            // for (var k = 0; k < probabilityScores.length; k++) {
+            //     //probabilityScores[k].Score = Math.round(probabilityScores[k].Score, 5);
+            //     probabilityScores[k].Percentage = Math.round((probabilityScores[k].Score / scoreSum) * 100, 2);
+            // }
 
+              probabilityScores.forEach(function(value){
+                value.Percentage =  Math.round((value.Score / scoreSum) * 100, 2);
+            });
 
-            var mostLikelyLanguage = _.max(probabilityScores, function (score) { return score.Score });
+            var mostLikelyLanguage = _.max(probabilityScores, function (score) { 
+                return score.Score;
+            });
+            
 
             return {
                 Scores: probabilityScores,
-                MostLikelyLanguage: mostLikelyLanguage
+                MostLikelyLanguage: mostLikelyLanguage,
+                UnableToIdentify: mostLikelyLanguage.Score === 0
             };
         }
 
 
-    };
+    }
 
 })();

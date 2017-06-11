@@ -2,8 +2,15 @@
   <div class="col-md-12">
     <h3 style="text-transform: uppercase;display:inline-block;border-bottom:4px solid #269abc">Ethiopic Language Identifier</h3>
 
-    <textarea ng-change="vm.identify()" class="form-control" rows=6 ng-model="vm.input" placeholder="Paste a url or a sample text"></textarea>
-    <br/>
+    <textarea ng-change="vm.identify()" class="form-control" rows=6 ng-model="vm.input" placeholder="Type or paste a sample text"></textarea>
+
+
+    <div style="text-align:center;margin:10px;">
+      <span>Supported Languages: </span>
+      <div style="display:inline" ng-repeat="sl in vm.supportedLanguages">
+        <div style="width:9px;height:9px;display:inline-block;background:{{sl.Color}}"></div> <span>{{sl.Language}}</span>&nbsp;
+      </div>
+    </div>
 
     <div>
       <button ng-click="vm.identify()" ng-disabled="loadingSignatures" style="margin:auto;width:12em" class="btn btn-lg btn-default"
@@ -12,28 +19,35 @@
   </div>
 </div>
 
-<div ng-if="vm.loadingSignatures" class="row" style="text-align:center">
-  <h2>Loading signatures. Please wait</h2>
+<div ng-show="vm.loadingSignatures" class="row" style="text-align:center">
+  <br/>
+  <img width=50 src="images/loading.gif" />
+  <h4>Loading signatures. Please wait...</h4>
 </div>
 
-<hr/>
 
 <div class="row" ng-show="!vm.loadingSignatures && vm.scores">
+  <hr/>
   <div class="row" style="text-align:center">
 
     <div class="col-md-12 col-sm-12">
-      <h3 style="font-size:1.2em"><span style="padding: 10px;border-bottom:5px solid #269abc">Language Identified As </span>
+      <h3 ng-hide="vm.unableToIdentify" style="font-size:1.2em"><span style="padding: 10px;border-bottom:5px solid #269abc">Language Identified As </span>
         <span style="padding: 10px;background:#269abc;
     color: white;
     border-bottom:5px solid #269abc;
     margin: auto;
-    width: 30%;text-transform:uppercase;"> {{vm.Language.Language}}</span>
+    width: 30%;text-transform:uppercase;"> 
+    {{vm.Language.Language}}
+    </span>
       </h3>
+      <label ng-show="vm.unableToIdentify" class="label label-danger" style="font-size:1.3em">
+        Unable To Identify
+      </label>
     </div>
   </div>
 
-  <hr/>
-  <div class="row">
+  <br/>
+  <div class="row" ng-hide="vm.unableToIdentify">
 
     <div style="text-align: center" class="col-md-12 col-sm-12">
       <small>Probability of the languages is shown</small>
@@ -50,16 +64,15 @@
     </div>
   </div>
 
-  <hr/>
 
-  <div class="row">
+
+  <div class="row" ng-hide="vm.unableToIdentify">
     <div style="text-align:center;margin-bottom:4px;" class="col-md-12">
       <button class="btn btn-info btn-lg" type="button" data-toggle="collapse" data-target="#furtherBreakdown" aria-expanded="false"
-        aria-controls="furtherBreakdown">
+        aria-controls="furtherBreakdown" style="margin:25px;">
   Detailed Breakdown <span class="glyphicon glyphicon-arrow-down"></span>
 </button>
-      <br/>
-      <br/>
+
       <div class="collapse" id="furtherBreakdown">
         <table style="margin:auto; width:60%" class="table table-bordered">
           <tr>
