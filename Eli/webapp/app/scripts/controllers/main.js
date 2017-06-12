@@ -13,9 +13,9 @@
   angular.module('eliApp')
     .controller('MainCtrl', controller);
 
-  controller.$inject = ['$http', 'languageIdentifier', 'signatureLoaderService', 'pageDownloaderService'];
+  controller.$inject = ['$http', 'languageIdentifier', 'signatureLoaderService'];
 
-  function controller($http, languageIdentifier, signatureLoaderService, pageDownloaderService) {
+  function controller($http, languageIdentifier, signatureLoaderService) {
 
     var vm = this;
 
@@ -33,7 +33,6 @@
     var signaturePath = './json';
 
     var signatures = [];
-
 
     signatureLoaderService.getSignaturesFromZip('./signature/sig')
       .then(function (sig) {
